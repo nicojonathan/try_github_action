@@ -35,5 +35,9 @@ func main() {
 
 	fmt.Println("Connected to port 8888")
 	log.Println("Connected to port 8888")
-	log.Fatal(http.ListenAndServe(":8888", router))
+	err := http.ListenAndServe(":8888", router)
+	if err != nil {
+		log.Fatalf("Error starting server: %v", err)
+	}
+
 }
