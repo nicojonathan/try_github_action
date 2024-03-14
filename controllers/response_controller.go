@@ -38,19 +38,33 @@ func sendTransactionDetailSuccessResponse(w http.ResponseWriter, message string,
 }
 
 
-func sendSuccessResponse (w http.ResponseWriter, message string) {
-	var response m.GeneralResponse
-	response.Status = 200
-	response.Message = message
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(response)
+func sendSuccessResponse(w http.ResponseWriter, message string) {
+    var response m.GeneralResponse
+    response.Status = 200
+    response.Message = message
+
+    w.Header().Set("Content-Type", "application/json")
+    err := json.NewEncoder(w).Encode(response)
+    if err != nil {
+        // Handle the error appropriately, for example:
+        http.Error(w, "Error encoding JSON response", http.StatusInternalServerError)
+        return
+    }
 }
 
-func sendErrorResponse (w http.ResponseWriter, status int, message string) {
-	var response m.GeneralResponse
-	response.Status = status 
-	response.Message = message
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(response)
+
+func sendErrorResponse(w http.ResponseWriter, status int, message string) {
+    var response m.GeneralResponse
+    response.Status = status 
+    response.Message = message
+
+    w.Header().Set("Content-Type", "application/json")
+    err := json.NewEncoder(w).Encode(response)
+    if err != nil {
+        // Handle the error appropriately, for example:
+        http.Error(w, "Error encoding JSON response", http.StatusInternalServerError)
+        return
+    }
 }
+
 
