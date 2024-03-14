@@ -29,7 +29,7 @@ func InsertNewProductV1(w http.ResponseWriter, r *http.Request) {
 
 	query := "INSERT INTO products (`name`, `price`) VALUES (?,?)"
 
-	result, err := db.Exec(query, name, price)
+	_, err := db.Exec(query, name, price)
 	if err != nil {
 		sendErrorResponse(w, 500, "Internal Server Error! Database Query Failed!")
 		return
